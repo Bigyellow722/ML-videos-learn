@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 # Define relevant variables for the ML task
-batch_size = 64
+batch_size = 1
 num_classes = 10
 learning_rate = 0.001
 num_epochs = 10
@@ -68,13 +68,29 @@ class LeNet5(nn.Module):
         self.fc2 = nn.Linear(84, num_classes)
         
     def forward(self, x):
+        print("0")
+        print(x.shape)
         out = self.layer1(x)
+        print("1")
+        print(out.shape)
         out = self.layer2(out)
+        print("2")
+        print(out.shape)
         out = out.reshape(out.size(0), -1)
+        print("3")
+        print(out.shape)
         out = self.fc(out)
+        print("4")
+        print(out.shape)
         out = self.relu(out)
+        print("5")
+        print(out.shape)
         out = self.fc1(out)
+        print("6")
+        print(out.shape)
         out = self.relu1(out)
+        print("7")
+        print(out.shape)
         out = self.fc2(out)
         return out
 
@@ -94,6 +110,8 @@ for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):  
         images = images.to(device)
         labels = labels.to(device)
+        print(f"images: {images} images.shape: {images.shape}")
+        print(f"labels: {labels} labels.shape: {labels.shape}")
         
         #Forward pass
         outputs = model(images)

@@ -1,5 +1,5 @@
 import os
-
+import csv
 
 dir = '/workspace/rasp-space/videos/machine-learn/25-degree/output/'
 
@@ -8,8 +8,8 @@ files.sort()
 
 print(files)
 
-train = open('train.txt', 'a')
-test = open('test.txt', 'a')
+train = open('train.csv', 'w', newline='')
+test = open('test.csv', 'w', newline='')
 train_index = 0
 test_index = 0
 for file in files:
@@ -19,10 +19,12 @@ for file in files:
         print(file_index)
 
         if file_index % 2 == 0:
-            entry = dir + file + ' ' + str(train_index) + '\n'
-            train.write(entry)
+            entry = file
+            train_csv = csv.writer(train)
+            train_csv.writerow([entry, str(train_index)])
             train_index = train_index + 1
         else:
-            entry = dir + file + ' ' + str(test_index) + '\n'
-            test.write(entry)
+            entry = file
+            test_csv = csv.writer(test)
+            test_csv.writerow([entry, str(test_index)])
             test_index = test_index + 1
